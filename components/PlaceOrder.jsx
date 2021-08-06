@@ -9,29 +9,35 @@ import {
   RadioGroup,
   FormControlLabel,
   Radio,
+  makeStyles
 } from "@material-ui/core";
 import "tailwindcss/tailwind.css";
 
-const PlaceOrder = () => {
+
+
+const PlaceOrder = (handleSubmitOrder) => {
 
   const [currency, setCurrency] = useState("Bitcoin");
   const [selectedOption, setSelectedOption] = useState("");
   const [amount, setAmount] = useState("");
 
-  const handleChange = (event) => {
-    setCurrency(event.target.value);
-  };
 
   const handleSubmit = (e) => {
-      e.preventDefault();
-      alert(currency);
+    e.preventDefault();
+    alert("Order Placed!");
   }
 
+  const useStyles = makeStyles({
+    root: {
+      display: "flex",
+    },
+  });
+
+  const classes = useStyles();
 
   return (
-    <div>
+    <div className={`bg-white p-10 rounded-lg`}>
       <form onSubmit={handleSubmit}>
-        <div>
           {/* Buy/Sell */}
           <FormControl component="fieldset">
             <RadioGroup
@@ -47,15 +53,22 @@ const PlaceOrder = () => {
             </RadioGroup>
           </FormControl>
 
+
+          {/* Spacer */}
+          <div className="pb-4 dn db-ns"></div>
+
           {/* currency */}
 
-          <FormControl variant="filled">
+          <FormControl variant="filled" className={`${classes.root}`}>
             <InputLabel>{currency}</InputLabel>
-            <Select value={currency} onChange={handleChange}>
+            <Select value={currency} onChange={(e) => setCurrency(e.target.value)}>
               <MenuItem value={"BTC"}>Bitcoin</MenuItem>
               <MenuItem value={"ETH"}>Ethereum</MenuItem>
             </Select>
           </FormControl>
+
+          {/* Spacer */}
+          <div className="pb-4 dn db-ns"></div>
 
           {/* amount  */}
           <TextField
@@ -65,12 +78,10 @@ const PlaceOrder = () => {
             label="Amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="m-8"
           />
-
-        </div>
-        <Button color="primary" variant="contained" fullWidth type="submit">
-          Place Button
+        <p className='pb-4'></p>
+        <Button color="default" variant="outlined"  type="submit" fullWidth className="m-12">
+          Place Order
         </Button>
       </form>
     </div>

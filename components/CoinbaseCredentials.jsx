@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import { Button, TextField } from "@material-ui/core";
 import "tailwindcss/tailwind.css";
 
-const CoinbaseCredentials = () => {
+const CoinbaseCredentials = (handleSubmitAuth) => {
   const validate = (values) => {
     const errors = {};
     if (!values.apiKey) {
@@ -29,12 +29,12 @@ const CoinbaseCredentials = () => {
     },
     validate,
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      alert("Submitted!");
     },
   });
 
   return (
-    <div>
+    <div className="bg-white p-10 rounded-lg">
       <form onSubmit={formik.handleSubmit}>
         <div>
           <TextField
@@ -73,6 +73,10 @@ const CoinbaseCredentials = () => {
             helperText={formik.touched.passphrase && formik.errors.passphrase}
             className="m-8"
           />
+
+            {/* Spacer */}
+            <div className="pb-4 dn db-ns"></div>
+
         </div>
         <Button color="primary" variant="contained" fullWidth type="submit">
           Submit
